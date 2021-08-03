@@ -26,3 +26,26 @@ bool isLoggedIn() {
         return false;
     }
 }
+
+int main() {
+    int choice;
+
+    cout << "1: Register\n2: Login\nYour Choice: ";
+    cin >> choice;
+
+    if (choice == 1) {
+        string username, password;
+
+        cout << "Enter a username: ";
+        cin >> username;
+        cout << "Enter a password: ";
+        cin >> password;
+
+        ofstream file;
+        file.open("data\\" + username + ".txt");
+        file << username << endl << password;
+        file.close();
+
+        main();
+    }
+}
