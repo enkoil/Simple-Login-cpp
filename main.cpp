@@ -11,26 +11,6 @@ using namespace std;
 const int CHAR_COUNT = 94; // ASCII characters 33 - 126 will be considered valid in a password
 const int SHIFT = 5;       // hard-coded Caesar cipher shift
 const int ASCII_MIN = 33; // smallest ASCII character considered valid in a password
-const string TEST_STRING = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
-
-bool isLoggedIn() {
-    string username, password, un, pw;
-
-    cout << "Enter username: ";
-    cin >> username;
-    cout << "Enter password: ";
-    cin >> password;
-
-    ifstream read(".\\data\\" + username + ".txt");
-    getline(read, un);
-    getline(read, pw);
-
-    if (un == username && pw == password) {
-        return true;
-    } else {
-        return false;
-    }
-}
 
 string caesarCipher(string word, int shift, bool encrypt) {
     string result = "";
@@ -44,6 +24,25 @@ string caesarCipher(string word, int shift, bool encrypt) {
         }
     }
     return result;
+}
+
+bool isLoggedIn() {
+    string username, password, un, pw;
+
+    cout << "Enter username: ";
+    cin >> username;
+    cout << "Enter password: ";
+    cin >> password;
+
+    ifstream read(".\\data\\" + username + ".txt");
+    getline(read, un);
+    getline(read, pw);
+
+    if (un == username && pw == caesarCipher(password, SHIFT, 1)) {  // compare usernames and encrypted passwords
+        return true;
+    } else {
+        return false;
+    }
 }
 
 int main() {
@@ -62,7 +61,7 @@ int main() {
 
         ofstream file;
         file.open(".\\data\\" + username + ".txt");
-        file << username << endl << password;
+        file << username << endl << caesarCipher(password, SHIFT, 1);  // store username and encrypted password in file
         file.close();
 
         main();
