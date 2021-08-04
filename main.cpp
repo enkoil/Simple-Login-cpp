@@ -9,7 +9,6 @@ simple file based login system based on: https://www.youtube.com/watch?v=I_aWPGC
 using namespace std;
 
 const int CHAR_COUNT = 94; // ASCII characters 33 - 126 will be considered valid in a password
-const int SHIFT = 5;       // hard-coded Caesar cipher shift
 const int ASCII_MIN = 33; // smallest ASCII character considered valid in a password
 
 string caesarCipher(string word, int shift) {
@@ -33,7 +32,7 @@ bool isLoggedIn() {
     getline(read, un);
     getline(read, pw);
 
-    if (un == username && pw == caesarCipher(password, SHIFT)) {  // compare usernames and encrypted passwords
+    if (un == username && pw == caesarCipher(password, password.length())) {  // compare usernames and encrypted passwords
         return true;
     } else {
         return false;
@@ -56,7 +55,7 @@ int main() {
 
         ofstream file;
         file.open(".\\data\\" + username + ".txt");
-        file << username << endl << caesarCipher(password, SHIFT);  // store username and encrypted password in file
+        file << username << endl << caesarCipher(password, password.length());  // store username and encrypted password in file
         file.close();
 
         main();
@@ -77,8 +76,8 @@ int main() {
 
 
 // NEXT STEPS:
-// shift by password length instead of hardcoded value
 // add option to reset/change password
 // add option to exit
+// add option to delete account
 // repeat program until exit
 // connect to database instead of using .txt files
