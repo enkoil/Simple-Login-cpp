@@ -12,16 +12,11 @@ const int CHAR_COUNT = 94; // ASCII characters 33 - 126 will be considered valid
 const int SHIFT = 5;       // hard-coded Caesar cipher shift
 const int ASCII_MIN = 33; // smallest ASCII character considered valid in a password
 
-string caesarCipher(string word, int shift, bool encrypt) {
+string caesarCipher(string word, int shift) {
     string result = "";
     for (int i = 0; i < word.length(); i++){
-        if (encrypt){
-            // shift to range 0..94, apply cipher, shift to range 33..126
-            result += static_cast<char>((((static_cast<int>(word[i]) - ASCII_MIN) + shift) % CHAR_COUNT) + ASCII_MIN);
-        } else {
-            // shift to range 0..94, apply cipher (accounting for negative numbers), shift to range 33..126
-            result += static_cast<char>(((((static_cast<int>(word[i]) - ASCII_MIN) - shift) % CHAR_COUNT + CHAR_COUNT) % CHAR_COUNT) + ASCII_MIN);
-        }
+        // shift to range 0..94, apply cipher, shift to range 33..126
+        result += static_cast<char>((((static_cast<int>(word[i]) - ASCII_MIN) + shift) % CHAR_COUNT) + ASCII_MIN);
     }
     return result;
 }
@@ -38,7 +33,7 @@ bool isLoggedIn() {
     getline(read, un);
     getline(read, pw);
 
-    if (un == username && pw == caesarCipher(password, SHIFT, 1)) {  // compare usernames and encrypted passwords
+    if (un == username && pw == caesarCipher(password, SHIFT)) {  // compare usernames and encrypted passwords
         return true;
     } else {
         return false;
@@ -61,7 +56,7 @@ int main() {
 
         ofstream file;
         file.open(".\\data\\" + username + ".txt");
-        file << username << endl << caesarCipher(password, SHIFT, 1);  // store username and encrypted password in file
+        file << username << endl << caesarCipher(password, SHIFT);  // store username and encrypted password in file
         file.close();
 
         main();
@@ -82,7 +77,6 @@ int main() {
 
 
 // NEXT STEPS:
-// refactor caesarCipher to only encrypt (that is all that is needed here)
 // shift by password length instead of hardcoded value
 // add option to reset/change password
 // add option to exit
