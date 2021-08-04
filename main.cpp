@@ -17,10 +17,10 @@ string caesarCipher(string word, int shift, bool encrypt) {
     for (int i = 0; i < word.length(); i++){
         if (encrypt){
             // shift to range 0..94, apply cipher, shift to range 33..126
-            result += static_cast<char>((((static_cast<int>(word[i]) - ASCII_MIN) + SHIFT) % CHAR_COUNT) + ASCII_MIN);
+            result += static_cast<char>((((static_cast<int>(word[i]) - ASCII_MIN) + shift) % CHAR_COUNT) + ASCII_MIN);
         } else {
             // shift to range 0..94, apply cipher (accounting for negative numbers), shift to range 33..126
-            result += static_cast<char>(((((static_cast<int>(word[i]) - ASCII_MIN) - SHIFT) % CHAR_COUNT + CHAR_COUNT) % CHAR_COUNT) + ASCII_MIN);
+            result += static_cast<char>(((((static_cast<int>(word[i]) - ASCII_MIN) - shift) % CHAR_COUNT + CHAR_COUNT) % CHAR_COUNT) + ASCII_MIN);
         }
     }
     return result;
@@ -79,3 +79,12 @@ int main() {
         }
     }
 }
+
+
+// NEXT STEPS:
+// refactor caesarCipher to only encrypt (that is all that is needed here)
+// shift by password length instead of hardcoded value
+// add option to reset/change password
+// add option to exit
+// repeat program until exit
+// connect to database instead of using .txt files
