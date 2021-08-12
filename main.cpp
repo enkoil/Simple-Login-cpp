@@ -63,9 +63,8 @@ int main() {
         bool status = isLoggedIn();
 
         if (!status) {
-            cout << "Login failed!" << endl;
-            system("PAUSE");
-            return 0;
+            cout << "\nLogin failed!\n" << endl;
+            main();
         } else {
             cout << "Successfully logged in!" << endl;
             system("PAUSE");
@@ -84,6 +83,5 @@ int main() {
 // NEXT STEPS:
 // add option to reset/change password
 // add option to delete account
-// repeat program until exit
 // connect to database instead of using .txt files
 // add a function for getting login info
