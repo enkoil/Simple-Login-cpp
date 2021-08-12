@@ -42,7 +42,7 @@ bool isLoggedIn() {
 int main() {
     int choice;
 
-    cout << "1: Register\n2: Login\nYour Choice: ";
+    cout << "1: Register\n2: Login\n3: Exit\nYour Choice: ";
     cin >> choice;
 
     if (choice == 1) {
@@ -71,13 +71,16 @@ int main() {
             system("PAUSE");
             return 1;
         }
+    } else if (choice == 3) {
+        cout << "Goodbye..." << endl;
+        return 0;
     }
 }
 
 
 // NEXT STEPS:
 // add option to reset/change password
-// add option to exit
 // add option to delete account
 // repeat program until exit
 // connect to database instead of using .txt files
+// add a function for getting login info
