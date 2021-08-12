@@ -74,6 +74,9 @@ int main() {
     } else if (choice == 3) {
         cout << "Goodbye..." << endl;
         return 0;
+    } else {
+        cout << "\nCommand not recognized!\n" << endl;
+        main();
     }
 }
 
